@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <servlet>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <servlet-class>com.ideas2it.servlets.EmployeeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>LeaveRecordServlet</servlet-name>
+        <servlet-class>com.ideas2it.servlets.LeaveRecordServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>EmployeeProjectsServlet</servlet-name>
+        <servlet-class>com.ideas2it.servlets.EmployeeProjectsServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <url-pattern>/EmployeeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <url-pattern>/ReadAllEmployees</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <url-pattern>/ReadEmployeeById</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <url-pattern>/ModifyEmployee</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EmployeeServlet</servlet-name>
+        <url-pattern>/UpdateEmployee</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LeaveRecordServlet</servlet-name>
+        <url-pattern>/LeaveRecordServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LeaveRecordServlet</servlet-name>
+        <url-pattern>/CreateLeaveRecord</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LeaveRecordServlet</servlet-name>
+        <url-pattern>/SelectLeaveRecord</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LeaveRecordServlet</servlet-name>
+        <url-pattern>/UpdateLeaveRecord</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EmployeeProjectsServlet</servlet-name>
+        <url-pattern>/EmployeeProjectsServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>EmployeeProjectsServlet</servlet-name>
+        <url-pattern>/CreateEmployeeProjects</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+</web-app>
