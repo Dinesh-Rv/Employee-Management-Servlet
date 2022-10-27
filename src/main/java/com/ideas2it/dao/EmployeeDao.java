@@ -75,8 +75,17 @@ public interface EmployeeDao {
      *     Searches if the phone Number already exist
      * </p>
      * @param userPhoneNumber
+     * @return returns the phone number if it already exist in db null if it's a new entry
+     */
+    public String getEmployeePhoneNumber(String userPhoneNumber);
+
+    /**
+     * <p>
+     *     Searches if the phone Number already exist
+     * </p>
+     * @param userEmail
      * @return a boolean value false if phone number matches an
      *         existing element
      */
-    public String getEmployeePhoneNumber(String userPhoneNumber);
+    public String getEmployeeEmail(String userEmail);
 }

@@ -50,4 +50,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return false;
     }
+
+    public boolean isEmailValid(String userEmail) {
+        String emailId = employeeDaoImpl.getEmployeeEmail(userEmail);
+        if(emailId == null){
+            return true;
+        }
+        return false;
+    }
 }

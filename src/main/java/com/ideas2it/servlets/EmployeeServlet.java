@@ -52,9 +52,6 @@ public class EmployeeServlet extends HttpServlet {
         String employeePhoneNumber = request.getParameter("phoneNumber");
         String employeeDateOfBirth = request.getParameter("dateOfBirth");
         String employeeEmail = request.getParameter("email");
-        String employeeId = officeController.createId();
-        String createdAt = String.valueOf(LocalDateTime.now());
-        String modifiedAt = String.valueOf(LocalDateTime.now());
 
         String processDetails = officeController.createEmployee(employeeName,
                                                                 employeeRole,
@@ -62,10 +59,7 @@ public class EmployeeServlet extends HttpServlet {
                                                                 employeePhoneNumber,
                                                                 employeeDateOfBirth,
                                                                 employeeGender,
-                                                                employeeEmail,
-                                                                employeeId,
-                                                                createdAt,
-                                                                modifiedAt);
+                                                                employeeEmail);
 
         request.setAttribute("message", processDetails);
         RequestDispatcher rd = request.getRequestDispatcher("createEmployee.jsp");
@@ -97,13 +91,16 @@ public class EmployeeServlet extends HttpServlet {
 
     public void getAllEmployees(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
-        //Gson gson = new Gson();
+        Gson gson = new Gson();
         List<Employee> employees = officeController.getAllEmployees();
-        //String displayEmployees = gson.toJson(employees);
-        writer.println(employees);
-        //request.setAttribute("employees", employees);
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("readAllEmployees.jsp");
-        //dispatcher.forward(request, response);
+        for (Employee employee:employees) {
+            employee.setLeaveRecords(null);
+            employee.setEmployeeProjects(null);
+        }
+        String displayEmployees = gson.toJson(employees);
+        request.setAttribute("employees", displayEmployees);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("readEmployee.jsp");
+        dispatcher.include(request, response);
     }
 
     public void getEmployeeById(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

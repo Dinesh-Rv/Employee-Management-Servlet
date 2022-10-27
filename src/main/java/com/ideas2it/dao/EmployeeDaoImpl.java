@@ -145,7 +145,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         String phoneNumber = null;
         try {
             session = sessionFactory.openSession();
-            Transaction transact = session.beginTransaction();
             Query query = session.createQuery("SELECT employeePhoneNumber from Employee WHERE employeePhoneNumber = :phoneNumber");
             query.setParameter("phoneNumber", userPhoneNumber);
             phoneNumber = (String)query.getSingleResultOrNull();
@@ -160,4 +159,23 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return phoneNumber;
     }
 
+    @Override
+    public String getEmployeeEmail(String userEmail){
+        Session session = null;
+        String emailId = null;
+        try {
+            session = sessionFactory.openSession();
+            Query query = session.createQuery("SELECT employeeEmail from Employee WHERE employeeEmail = :emailId");
+            query.setParameter("emailId", userEmail);
+            emailId = (String)query.getSingleResultOrNull();
+
+        } catch (HibernateException h) {
+            System.out.println(h);
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return emailId;
+    }
 }

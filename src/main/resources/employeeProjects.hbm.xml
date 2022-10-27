@@ -16,7 +16,6 @@
         <property name = "clientName" column="client" type="string"/>
         <property name = "createdAt" column = "created_at" type= "string"/>
         <property name = "modifiedAt" column = "modified_at" type= "string"/>
-        <property name = "deleted" column="deleted" type="integer"/>
 
         <bag name = "employee" table="employee_projects" cascade = "all">
             <key column = "project_id"/>

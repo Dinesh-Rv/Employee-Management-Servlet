@@ -11,7 +11,6 @@ an employee, doesn't contain any i/o operation
  */
 public class EmployeeProjects {
     private int projectId;
-    private String employeeId;
     private String projectName;
     private String projectManager;
     private String clientName;
@@ -20,8 +19,6 @@ public class EmployeeProjects {
     private String modifiedAt;
 
     private List<Employee> employee;
-
-    private int deleted;
 
     public List<Employee> getEmployee() {
         return employee;
@@ -56,14 +53,6 @@ public class EmployeeProjects {
     public int getProjectId() {
         return projectId;
     }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getEmployeeId() {
-        return employeeId;
-    } 
 
 
     public void setProjectName(String projectName) {
@@ -112,14 +101,6 @@ public class EmployeeProjects {
 
     public String getModifiedAt() {		
         return modifiedAt;
-    }
-
-    public int getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(int deleted) {
-        this.deleted = deleted;
     }
 
     @Override

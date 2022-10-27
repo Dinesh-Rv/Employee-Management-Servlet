@@ -8,18 +8,10 @@ import com.ideas2it.service.EmployeeServiceImpl;
 import com.ideas2it.service.LeaveRecordsServiceImpl;
 import com.ideas2it.service.EmployeeProjectsServiceImpl;
 
-import com.ideas2it.constants.Constants;
-
-import com.ideas2it.utils.ValidationUtils;
-
 import com.ideas2it.model.Employee;
 import com.ideas2it.model.LeaveRecords;
 
-import com.ideas2it.enums.EmployeeRole;
-import com.ideas2it.enums.EmployeeGender;
 import com.ideas2it.enums.LeaveType;
-
-import com.ideas2it.exceptions.MoreCharacterException;
 
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -33,16 +25,15 @@ import java.time.format.DateTimeFormatter;
  * </p>
  *
  * @author Dinesh Kumar R
- * 
- * @modified 14.10.2022
+ * @since 2022/10/21
  *
  */
 public class OfficeController {							  
 
-    private EmployeeService employeeServiceImpl = new EmployeeServiceImpl();
-    private LeaveRecordsService leaveRecordsServiceImpl = new LeaveRecordsServiceImpl();
-    private EmployeeProjectsService employeeProjectsServiceImpl = new EmployeeProjectsServiceImpl();
-    private Scanner scanner = new Scanner(System.in);
+    private final EmployeeService employeeServiceImpl = new EmployeeServiceImpl();
+    private final LeaveRecordsService leaveRecordsServiceImpl = new LeaveRecordsServiceImpl();
+    private final EmployeeProjectsService employeeProjectsServiceImpl = new EmployeeProjectsServiceImpl();
+    private final Scanner scanner = new Scanner(System.in);
 
 
     /**
@@ -75,6 +66,20 @@ public class OfficeController {
      * Creates an employee
      * </p>
      *
+     * @param employeeName
+     *        contains an name of the employee
+     * @param employeeRole
+     *        role description of the employee
+     * @param employeeDepartment
+     *        department of the employee
+     * @param employeePhoneNumber
+     *        phone Number the employee
+     * @param employeeDateOfBirth
+     *        dob of an employee
+     * @param employeeGender
+     *        gender description of an wheather male, female or undefined
+     * @param employeeEmail
+     *        email of an employee will be passed to another method to check if the email is valid
      */
     public String createEmployee(String employeeName,
                                  String employeeRole,
@@ -82,15 +87,14 @@ public class OfficeController {
                                  String employeePhoneNumber,
                                  String employeeDateOfBirth,
                                  String employeeGender,
-                                 String employeeEmail,
-                                 String employeeId,
-                                 String createdAt,
-                                 String modifiedAt) {
-
+                                 String employeeEmail) {
+        String employeeId = createId();
+        String createdAt =  currentDateTime();
+        String modifiedAt =  currentDateTime();
         String validPhoneNumber = getValidPhoneNumber(employeePhoneNumber);
         String validEmail = getValidEmail(employeeEmail);
+        String errors = isAllInputValid(validPhoneNumber, validEmail);
 
-        String errors = isAllInputValid(validPhoneNumber);
         if (errors == null) {
             Employee newEmployeeDetails = new Employee(employeeName,
                                                        employeeRole,
@@ -111,6 +115,38 @@ public class OfficeController {
 
     /**
      * <p>
+     * Method to generate an id when an employee is created
+     * </p>
+     *
+     * @return String employeeId
+     */
+    public String createId() {
+        int idNumber = 1;
+        String lastId = employeeServiceImpl.getEmployeeId();
+        try {
+            String[] splitId = lastId.split("T");
+            idNumber = Integer.parseInt(splitId[1]) + 1;
+        } catch (NullPointerException ignored) {
+
+        }
+        return "I2IT" + idNumber;
+    }
+
+    /**
+     *<p>
+     * current date and time for createdAt and modifiedAt feature
+     *</p>
+     *
+     * @return Type of leave alloted for the employee
+     */
+    public String currentDateTime() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return localDateTime.format(dateTime);
+    }
+
+    /**
+     * <p>
      * To validate user phone Number input
      * </p>
      *
@@ -126,29 +162,31 @@ public class OfficeController {
         return null;
     }
 
+    public String getValidEmail(String userEmail) {
+        if(employeeServiceImpl.isEmailValid(userEmail)) {
+            return userEmail;
+        }
+        return null;
+    }
     /**
      * <p>
      *     checks if phone number and email id is actually valid
      *     by comparing each validation return value
      * </p>
      * @param validPhoneNumber
+     *        contains the phone number of an employee, contains null if the input isn't valid.
+     * @param validEmail
+     *        contains the email from the user input, contains null if the input isn't valid.
      * @return the value if it doesnt contains any null content
      *         if it does passes an error statement
      */
-    public String isAllInputValid(String validPhoneNumber) {
-
-        int validInputs = 2;
+    public String isAllInputValid(String validPhoneNumber, String validEmail) {
 
         if(validPhoneNumber == null) {
-            validInputs = validInputs - 1;
             return "Invalid Phone Number: Phone Number Already Exist";
+        } else if(validEmail == null) {
+            return "Invalid Email Id: Email Already exist";
         }
-
-        //if(validEmail == null) {
-            //validInputs = validInputs - 1;
-            //return "Invalid Email Id: Email Already exist";
-        //}
-
         return null;
     }
 
@@ -176,38 +214,6 @@ public class OfficeController {
 
     /**
      * <p>
-     * To validate user email input
-     * </p>
-     *
-     * @param userEmail
-     *        contains the email input from the user
-     * @return the phone number if the entered phone number is valid
-     */
-    public String getValidEmail(String userEmail) {
-        ValidationUtils validationUtils = new ValidationUtils();
-            if(validationUtils.emailValidation(userEmail)) {
-                return userEmail;
-            }
-        return null;
-    }
-
-
-
-    /**
-     *<p>
-     * current date and time for createdAt and modifiedAt feature
-     *</p>
-     *
-     * @return Type of leave alloted for the employee
-     */
-    public String currentDateTime() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        return localDateTime.format(dateTime);
-    }
-
-    /**
-     * <p>
      * creates an project record for employee
      * </p>
      *
@@ -223,26 +229,6 @@ public class OfficeController {
         }
         return "Project record Unsuccessfull";
     }
-
-    /**
-     * <p>
-     * Method to generate an id when an employee is created
-     * </p>
-     *
-     * @return String employeeId
-     */ 
-    public String createId() {
-        int idNumber = 1;
-        String lastId = employeeServiceImpl.getEmployeeId();
-        try {
-            String[] splitId = lastId.split("T");
-            idNumber = Integer.parseInt(splitId[1]) + 1;
-        } catch (NullPointerException n) {
-
-        }
-	return "I2IT" + idNumber;
-    }
-
 
     /**
      * <p>
@@ -310,39 +296,12 @@ public class OfficeController {
      * </p>
      *
      */ 
-    public void updateEmployeeProjects(Employee employee) {
-        /*EmployeeProjects employeeProjects = employeeProjectsServiceImpl.getEmployeeProject(employee); 
-    
-        for(;;) {			
-            System.out.println(employeeProjects);
-            leaveRecordsUpdateStatement();
-            int updateElement = scanner.nextInt();
-				
-	    if (updateElement == 1) {	
-                employeeProjects.setProjectName(scanner.nextLine());
-                employeeProjects.setModifiedAt(currentDateTime());
-                employeeProjectsServiceImpl.updateEmployeeProjects(employeeProjects);
-
-	    } else if (updateElement == 2)  {
-                employeeProjects.setProjectManager(scanner.nextLine()); 
-                employeeProjects.setModifiedAt(currentDateTime());
-                employeeProjectsServiceImpl.updateEmployeeProjects(employeeProjects);
-
-            } else if (updateElement == 3) {	
-                employeeProjects.setClientName(scanner.nextLine());
-                employeeProjects.setModifiedAt(currentDateTime());
-                employeeProjectsServiceImpl.updateEmployeeProjects(employeeProjects);
-
-            } else if (updateElement == 4) {	
-                employeeProjects.setStartDate(scanner.nextLine());
-                employeeProjects.setModifiedAt(currentDateTime());
-                employeeProjectsServiceImpl.updateEmployeeProjects(employeeProjects);
-
-            } else {
-                System.out.println("Backing");
-            }
-        }*/ 
-    }
+    /*public void updateEmployeeProjects(EmployeeProjects employeeProjects, Employee employee) {
+        if(employeeProjectsServiceImpl.updateEmployeeProjects(employeeProjects, employee)) {
+            return "Update successfully completed";
+        }
+        return "Update Aborted";
+    }*/
 
     /**
      *<p>

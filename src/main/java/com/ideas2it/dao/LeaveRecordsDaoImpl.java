@@ -23,7 +23,7 @@ public class LeaveRecordsDaoImpl implements LeaveRecordsDao {
     public int addLeaveRecord(LeaveRecords record) {
         int leaveId = 0;
         Session session = null;
-        try { 
+        try {
             session = sessionFactory.openSession();
             Transaction transact = session.beginTransaction();
             leaveId = (Integer)session.save(record);

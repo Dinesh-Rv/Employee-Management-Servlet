@@ -15,9 +15,11 @@
     <form action = "ReadAllEmployees" method = "get">
         <a href="${pageContext.request.contextPath}/ReadAllEmployees" >Read All Employee Details</a>
     </form>
-
+<br/>
 <%-- Displays Employee using id  --%>
     <a href="readEmployeeById.jsp">Read Employee By Id</a>
+<br/>
+<p>${employees}</p>
 
 
 

@@ -84,7 +84,17 @@ process is successfull
      *     already exist in db
      * </p>
      * @param userPhoneNumber
-     * @return
+     * @return true if the userPhoneNumber is unique
      */
     public boolean isPhoneNumberValid(String userPhoneNumber);
+
+    /**
+     * <p>
+     *     checks if the user email
+     *     already exist in db
+     * </p>
+     * @param userEmail
+     * @return true if the userEmail is unique
+     */
+    public boolean isEmailValid(String userEmail);
 }
