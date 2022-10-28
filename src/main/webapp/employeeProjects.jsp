@@ -22,20 +22,20 @@
         <tr>
             <td>
                 <input type="radio" name="crudValue" id="create" value="create">
-                <label for="create">Create Employee Project</label>
+                <label for="create">Manage a New Project</label>
             </td>
         </tr>
         <br>
         <tr>
             <td>
                 <input type="radio" name="crudValue" id="read" value="read">
-                <label for="read">Read Employee Project</label>
+                <label for="read">Read Projects</label>
             </td>
         </tr>
         <tr>
             <td>
                 <input type="radio" name="crudValue" id="update" value="update">
-                <label for="update">Update Employee Project</label>
+                <label for="update">Update Project</label>
             </td>
         </tr>
     </table>

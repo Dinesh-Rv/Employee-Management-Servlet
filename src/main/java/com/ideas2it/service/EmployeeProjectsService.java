@@ -18,7 +18,7 @@ public interface EmployeeProjectsService {
      * @return boolean element to confirm the record
      * is added successful in the database
      */ 
-    public boolean addEmployeeProject(EmployeeProjects record, Employee employee);
+    public boolean addEmployeeProject(EmployeeProjects record);
 
 
     /**

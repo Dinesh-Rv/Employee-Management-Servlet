@@ -1,6 +1,5 @@
 package com.ideas2it.dao;
 
-import com.ideas2it.dao.EmployeeDao;
 import com.ideas2it.model.Employee;
 
 import org.hibernate.Session;
@@ -46,20 +45,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public List<Employee> getEmployees() {
-        List<Employee> employees = new ArrayList<Employee>();
+        List<Employee> employees = new ArrayList<>();
         Session session = null;
         try {
             session = sessionFactory.openSession();
             Transaction transact = session.beginTransaction();
             employees = session.createQuery("FROM Employee WHERE deleted = 0").list();
             transact.commit();
-        } catch (HibernateException h) {
-            System.out.println(h);
+        } catch (HibernateException ignored) {
+
         } finally {
             if(session != null) {
                 session.close();
-            }          
-        }    
+            }
+        }
         return employees;
     }
 

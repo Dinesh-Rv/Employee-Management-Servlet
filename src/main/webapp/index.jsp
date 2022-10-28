@@ -12,5 +12,7 @@
 
 
 <a href= "employee.jsp">EMPLOYEE CRUD OPERATION</a>
+<br/>
+<a href= "projects.jsp">PROJECT CRUD OPERATION</a>
 </body>
 </html>

@@ -219,16 +219,17 @@ public class OfficeController {
      *
      */ 
     public String createEmployeeProject(String projectName, String projectManager, String clientName,
-                                        String startDate, Employee employee, String createdAt, String modifiedAt) {
+                                        String startDate, String createdAt, String modifiedAt) {
 
         EmployeeProjects record = new EmployeeProjects(projectName, projectManager, clientName,
                                                        startDate, createdAt, modifiedAt);
 
-        if(employeeProjectsServiceImpl.addEmployeeProject(record, employee)) {
+        if(employeeProjectsServiceImpl.addEmployeeProject(record)) {
             return "Project record Successfull";
         }
         return "Project record Unsuccessfull";
     }
+
 
     /**
      * <p>

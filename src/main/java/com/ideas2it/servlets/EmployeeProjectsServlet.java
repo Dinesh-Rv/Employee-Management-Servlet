@@ -75,10 +75,9 @@ public class EmployeeProjectsServlet extends HttpServlet {
         String startDate = request.getParameter("startDate");
         String createdAt = String.valueOf(LocalDateTime.now());
         String modifiedAt = String.valueOf(LocalDateTime.now());
-        Employee employee = officeController.getEmployeeById(request.getParameter("employeeId"));
 
         String processDetails = officeController.createEmployeeProject(projectName, projectManager, clientName,
-                                                                     startDate, employee, createdAt, modifiedAt);
+                                                                     startDate, createdAt, modifiedAt);
         request.setAttribute("message", processDetails);
         RequestDispatcher rd = request.getRequestDispatcher("modifyEmployee.jsp");
         rd.forward(request, response);

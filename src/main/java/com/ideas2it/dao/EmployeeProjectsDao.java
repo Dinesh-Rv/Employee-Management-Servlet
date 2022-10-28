@@ -21,12 +21,10 @@ public interface EmployeeProjectsDao {
      *
      * @param record
      *        contains the details of a record to be inserted to the row
-     * @param employee
-     *        contains the object of an employee
      * @return boolean result
      *         true if the project addition is successful
      */
-    public boolean addEmployeeProject(EmployeeProjects record, Employee employee);
+    public boolean addEmployeeProject(EmployeeProjects record);
 
     /**
      * <p>

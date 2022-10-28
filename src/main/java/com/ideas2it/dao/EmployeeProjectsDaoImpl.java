@@ -15,16 +15,16 @@ import org.hibernate.query.Query;
 public class EmployeeProjectsDaoImpl implements EmployeeProjectsDao {
     private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     @Override
-    public boolean addEmployeeProject(EmployeeProjects employeeProject, Employee employee) {
-        List<Employee> employees = new ArrayList<Employee>();
-        employees.add(employee);
-        employeeProject.setEmployee(employees);
+    public boolean addEmployeeProject(EmployeeProjects project) {
+        //List<Employee> employees = new ArrayList<Employee>();
+
+        //employeeProject.setEmployee(employees);
         Session session = null;
         int projectId = 0;
         try {
             session = sessionFactory.openSession();
             Transaction transact = session.beginTransaction();
-            projectId = (Integer) session.save(employeeProject);
+            session.save(project);
             transact.commit();
             return true;
         } catch (HibernateException h) {
@@ -36,6 +36,39 @@ public class EmployeeProjectsDaoImpl implements EmployeeProjectsDao {
         }
         return false;
     }
+
+    public boolean assignProjectToEmployees(int projectId, List<String> employeeIds) {
+            List<Employee> employees = new ArrayList<Employee>();
+
+            //employeeProject.setEmployee(employees);
+            Session session = null;
+
+            try {
+
+                session = sessionFactory.openSession();
+                Transaction transact = session.beginTransaction();
+                Query query1 = session.createQuery("from EmployeeProjects where projectId = "+projectId);
+                EmployeeProjects project = (EmployeeProjects) query1.uniqueResult();
+                for(String employeeId:employeeIds) {
+                    Query query = session.createQuery("from Employee where employeeId = '"+employeeId+"'");
+                    Employee emp1 = (Employee) query.uniqueResult();
+                    if(emp1!=null) {
+                        employees.add(emp1);
+                    }
+                }
+                project.setEmployee(employees);
+                session.saveOrUpdate(project);
+                transact.commit();
+                return true;
+            } catch (HibernateException h) {
+                System.out.println(h);
+            } finally {
+                if(session != null) {
+                    session.close();
+                }
+            }
+            return false;
+        }
 
     @Override
     public List<EmployeeProjects> getEmployeeProject(String employeeId) {

@@ -11,8 +11,8 @@ public class EmployeeProjectsServiceImpl implements EmployeeProjectsService {
 
     private EmployeeProjectsDao employeeProjectsDaoImpl = new EmployeeProjectsDaoImpl();
 
-    public boolean addEmployeeProject(EmployeeProjects record, Employee employee) {
-        return employeeProjectsDaoImpl.addEmployeeProject(record, employee);
+    public boolean addEmployeeProject(EmployeeProjects record) {
+        return employeeProjectsDaoImpl.addEmployeeProject(record);
     }
 
     public List<EmployeeProjects> getEmployeeProject(String employeeId) {

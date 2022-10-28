@@ -19,16 +19,12 @@
             <th>Enter the values here</th>
         </tr>
         <tr>
-            <td>Employee Id: </td>
-            <td><input type="text" name="employeeId" value="${employee.employeeId}" readonly></td>
+            <td>Manager: </td>
+            <td><input type="text" name="projectManager" value="${employee.employeeId}" readonly></td>
         </tr>
         <tr>
             <td>Project Name</td>
             <td><input type="text" name="projectName" required ></td>
-        </tr>
-        <tr>
-            <td>Manager Name</td>
-            <td><input type="text" name="projectManager" required ></td>
         </tr>
         <tr>
             <td>Client Name</td>
