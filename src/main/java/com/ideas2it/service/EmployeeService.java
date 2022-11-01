@@ -7,6 +7,7 @@ import com.ideas2it.model.Employee;
 import java.util.List;
 import java.util.ArrayList;
 
+
 public interface EmployeeService {
 
     /**
@@ -70,16 +71,6 @@ process is successfull
 
     /**
      * <p>
-     * Gets a employee id for id generation
-     * </p>
-     * 
-     * @return last id created
-     *
-     */
-    public String getEmployeeId();
-
-    /**
-     * <p>
      *     checks if the user phone number
      *     already exist in db
      * </p>
@@ -97,4 +88,10 @@ process is successfull
      * @return true if the userEmail is unique
      */
     public boolean isEmailValid(String userEmail);
+
+    /**
+     * gets a new employee id
+     * @return a new employee id for a new entry for an employee
+     */
+    public String getNewEmployeeId();
 }

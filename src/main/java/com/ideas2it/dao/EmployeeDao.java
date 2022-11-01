@@ -68,7 +68,7 @@ public interface EmployeeDao {
      *
      * @return the last id created
      */
-    public String getEmployeeId();
+    public String getLastEmployeeId();
 
     /**
      * <p>
@@ -88,4 +88,5 @@ public interface EmployeeDao {
      *         existing element
      */
     public String getEmployeeEmail(String userEmail);
+
 }

@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  * @author Dinesh Ravikumar
  * @modified 21-09-2022
  */
+@Repository
 public class EmployeeDaoImpl implements EmployeeDao {
 
     private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -121,7 +123,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     } 
     
     @Override
-    public String getEmployeeId() {
+    public String getLastEmployeeId() {
         Session session = null;
         String id = null;
         try {
@@ -177,4 +179,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
         return emailId;
     }
+
+
 }
