@@ -17,7 +17,7 @@
     <table>
         <tr>
             <td>Enter Employee ID</td>
-            <td><input type="text" name="EmployeeId"></td>
+            <td><input type="text" name="employeeId" required></td>
         </tr>
         <tr>
             <td></td>
@@ -31,5 +31,6 @@
     <label for="id">Employee Id</label>
     <a href="${pageContext.request.contextPath}/EmployeeServlet">read using id</a>--%>
 </form>
+    <a href="${pageContext.request.contextPath}/employee">back to employee crud</a>
 </body>
 </html>
