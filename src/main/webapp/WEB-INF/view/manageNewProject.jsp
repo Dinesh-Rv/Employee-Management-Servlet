@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="CreateEmployeeProjects" method="get">
+<form action="CreateEmployeeProjects" method="post">
     <table>
 
         <tr>
